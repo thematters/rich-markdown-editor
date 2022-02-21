@@ -1,10 +1,12 @@
-import React from 'react';
-import { render } from 'react-dom';
+import React from "react";
+import { render } from "react-dom";
 
-import { css } from '@emotion/css';
-import { useHelpers } from '@remirror/react';
+import debounce from "lodash.debounce";
 
-import { MarkdownEditor } from '../src';
+import { css } from "@emotion/css";
+import { useHelpers } from "@remirror/react";
+
+import { MarkdownEditor } from "../src";
 
 const basicContent = `
 **Markdown** content is the _best_
@@ -25,6 +27,8 @@ const basicContent = `
 
 ![image caption](https://myoctocat.com/assets/images/base-octocat.svg)
 
+---
+
 ## List support
 
 - an unordered
@@ -38,21 +42,23 @@ const basicContent = `
 function MarkdownPreview() {
   const { getMarkdown } = useHelpers(true);
 
-  return (<div
-    className={css`
-      margin: 0.25rem;
-      padding: 0.25rem;
-      border: 0.25rem solid hotpink;
-      border-radius: 0.5rem;
-      &:hover {
-        border-color: blue;
-      }
-    `}
-  >
-    <pre>
-      <code>{getMarkdown()}</code>
-    </pre>
-  </div>);
+  return (
+    <div
+      className={css`
+        margin: 0.25rem;
+        padding: 0.25rem;
+        border: 0.25rem solid hotpink;
+        border-radius: 0.5rem;
+        &:hover {
+          border-color: blue;
+        }
+      `}
+    >
+      <pre>
+        <code>{getMarkdown()}</code>
+      </pre>
+    </div>
+  );
 }
 
 const App = () => {
@@ -60,11 +66,15 @@ const App = () => {
     <MarkdownEditor
       placeholder="Start typing..."
       initialContent={basicContent}
-      editorUpdate={(params: Params) => console.log('editorUpdate:', JSON.stringify(params))}
+      editorUpdate={debounce(
+        (params: Params) =>
+          console.log("editorUpdate:", JSON.stringify(params)),
+        300
+      )}
     >
       <MarkdownPreview />
     </MarkdownEditor>
   );
 };
 
-render(<App />, document.getElementById('demo'));
+render(<App />, document.getElementById("demo"));

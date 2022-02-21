@@ -605,6 +605,23 @@ button:active .remirror-menu-pane-shortcut,
 
 .remirror-editor.ProseMirror hr {
   border-color: #2e2e2e;
+  display: block;
+  width: 10rem;
+  height: 0.25rem;
+  margin: 2rem auto;
+  border-width: 1px 0;
+  border-top-style: solid;
+  border-top-color: rgb(0 0 0 / 24%);
+  border-bottom-style: solid;
+  border-bottom-color: rgb(0 0 0 / 24%);
+}
+
+.remirror-editor.ProseMirror code {
+  padding: 2px 3px 1px;
+  border: 1px solid rgb(29 28 29 / 13%);
+  border-radius: 3px;
+  background-color: rgb(29 28 29 / 4%);
+  color: #e01e5a;
 }
 
 .remirror-editor.ProseMirror ::-moz-selection {
